@@ -7,8 +7,8 @@ const fileUpload = require('express-fileupload')
 require('dotenv').config()
 const MongoClient = require('mongodb').MongoClient;
 const { ObjectID } = require('mongodb');
-const uri = `mongodb+srv://${process.env.DB_USER}:4DUB3g0IEHMpfk6I@cluster0.znbhd.mongodb.net/${process.env.DB_NAME}?retryWrites=true&w=majority`;
-
+const uri = `mongodb+srv://BRMC-USER:1d8jjctndl0ZDaEq@cluster0.znbhd.mongodb.net/Buds-College-Base?retryWrites=true&w=majority`;
+// console.log(process.env.DB_USER)
 
 app.use(bodyParser.json())
 app.use(cors())
@@ -20,11 +20,11 @@ app.get('/', (req, res) => {
   const client = new MongoClient(uri, { useNewUrlParser: true , useUnifiedTopology: true});
   client.connect(err => {
     console.log(err)
-    const TeachersCollection = client.db(`${process.env.DB_NAME}`).collection("Teachers");
-  const AdminCollection = client.db(`${process.env.DB_NAME}`).collection("Admins");
-  const NoticeCollection = client.db(`${process.env.DB_NAME}`).collection("Notices");
-  const VacancyNumber = client.db(`${process.env.DB_NAME}`).collection("Vacancy");
-  const Students = client.db(`${process.env.DB_NAME}`).collection("Students");
+    const TeachersCollection = client.db("Buds-College-Base").collection("Teachers");
+  const AdminCollection = client.db("Buds-College-Base").collection("Admins");
+  const NoticeCollection = client.db("Buds-College-Base").collection("Notices");
+  const VacancyNumber = client.db("Buds-College-Base").collection("Vacancy");
+  const Students = client.db("Buds-College-Base").collection("Students");
 
 // console.log(client)
   console.log('database connect')
@@ -146,7 +146,7 @@ app.get('/gettvacancy',(req,res)=>{
   VacancyNumber.find({})
   .toArray((err,documents)=>{
     res.send(documents)
-    // console.log(err)
+    console.log(documents)
 })
 })
 app.patch('/updatevacancy/:id',(req,res)=>{
